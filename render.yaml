@@ -1,0 +1,78 @@
+# Blueprint Render : API + worker + PostgreSQL + Redis (Key Value).
+# Le frontend se déploie sur Vercel (racine : frontend/, variable NEXT_PUBLIC_API_URL = URL de l'API).
+# Les variables `sync: false` se renseignent dans le tableau de bord Render.
+services:
+- type: web
+  name: bookflow-api
+  runtime: docker
+  rootDir: backend
+  healthCheckPath: /health
+  envVars:
+  - key: DATABASE_URL
+    fromDatabase:
+      name: bookflow-db
+      property: connectionString
+  - key: REDIS_URL
+    fromService:
+      type: keyvalue
+      name: bookflow-redis
+      property: connectionString
+  - key: JWT_SECRET
+    generateValue: true
+  - key: FRONTEND_URL
+    sync: false
+  - key: API_URL
+    sync: false
+  - key: CORS_ORIGINS
+    sync: false
+  - key: PAYMENTS_PROVIDER
+    value: stripe
+  - key: STRIPE_SECRET_KEY
+    sync: false
+  - key: STRIPE_WEBHOOK_SECRET
+    sync: false
+  - key: GOOGLE_CLIENT_ID
+    sync: false
+  - key: EMAIL_BACKEND
+    value: console
+- type: worker
+  name: bookflow-worker
+  runtime: docker
+  rootDir: backend
+  dockerCommand: python -m app.worker
+  envVars:
+  - key: DATABASE_URL
+    fromDatabase:
+      name: bookflow-db
+      property: connectionString
+  - key: REDIS_URL
+    fromService:
+      type: keyvalue
+      name: bookflow-redis
+      property: connectionString
+  - key: JWT_SECRET
+    generateValue: true
+  - key: FRONTEND_URL
+    sync: false
+  - key: API_URL
+    sync: false
+  - key: CORS_ORIGINS
+    sync: false
+  - key: PAYMENTS_PROVIDER
+    value: stripe
+  - key: STRIPE_SECRET_KEY
+    sync: false
+  - key: STRIPE_WEBHOOK_SECRET
+    sync: false
+  - key: GOOGLE_CLIENT_ID
+    sync: false
+  - key: EMAIL_BACKEND
+    value: console
+- type: keyvalue
+  name: bookflow-redis
+  plan: free
+  ipAllowList: []
+databases:
+- name: bookflow-db
+  plan: free
+  postgresMajorVersion: '16'

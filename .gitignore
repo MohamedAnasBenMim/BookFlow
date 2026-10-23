@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.env
+*.rdb
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+test-results/
+playwright-report/

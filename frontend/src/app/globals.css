@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --fg: #1b1a17;
+  --muted: #6b675f;
+  --line: #e4e1d8;
+  --accent: #2f5d50;
+  --accent-fg: #ffffff;
+  --accent-soft: #e3ece8;
+  --danger: #b4432f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141513;
+    --surface: #1d1f1c;
+    --fg: #ecebe6;
+    --muted: #a19e95;
+    --line: #30332e;
+    --accent: #7fb7a4;
+    --accent-fg: #0f1a16;
+    --accent-soft: #24332d;
+    --danger: #e3846f;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", Georgia, serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Composants réutilisables (Tailwind v4 : @utility pour pouvoir les composer entre eux) */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-accent text-accent-fg hover:opacity-90;
+}
+@utility btn-ghost {
+  @apply btn border border-line bg-surface hover:bg-accent-soft;
+}
+@utility card {
+  @apply rounded-xl border border-line bg-surface;
+}
+@utility input {
+  @apply w-full rounded-lg border border-line bg-surface px-3 py-2.5 text-sm outline-none focus:border-accent focus:ring-2 focus:ring-accent/20;
+}
+@utility label {
+  @apply mb-1.5 block text-sm font-medium;
+}
