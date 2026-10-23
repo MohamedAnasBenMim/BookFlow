@@ -2,7 +2,7 @@
 
 **Multi-tenant online appointment booking (SaaS): reservations, payments, reminders and a management dashboard.**
 
-![CI](https://github.com/MohamedAnasBenMim/bookflow/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/MohamedAnasBenMim/BookFlow/actions/workflows/ci.yml/badge.svg)
 
 A hair salon, yoga studio or medical practice publishes its own `bookflow/<entreprise>` page; customers pick
 a service and a time slot, pay online, and receive a confirmation followed by a reminder the day before.
